@@ -1,4 +1,5 @@
-asdasldjnbaskd
+### coso de backend
+django + apis + nse
 
 NO OLVIDAR
 
