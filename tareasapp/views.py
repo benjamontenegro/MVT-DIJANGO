@@ -3,8 +3,7 @@ from django.http import HttpResponse
 from .models import Tarea
 # Create your views here.
 
-# def inicio(request):
-#     return HttpResponse("Hola, esta es mi App de Tareas")
+# Esta es la logica de toda la aplicaicon
 
 def inicio(request):
     tareas = Tarea.objects.all()
@@ -17,7 +16,7 @@ def crear_tarea(request):
     if request.method == 'POST':
         titulo = request.POST['titulo']
         descripcion = request.POST['descripcion']
-        completada = 'completa' in request.POST
+        completada = 'completada' in request.POST
 
         Tarea.objects.create(
             titulo = titulo,
@@ -28,3 +27,39 @@ def crear_tarea(request):
         return redirect('inicio')
         # LLEVA AL INICIO
     return render (request, 'tareasapp/crear.html')
+
+# MOSTRAR URL DE DETALLE TAREA CON LA ID DE LA TAREA
+# A DETALLAR
+def detalle_tarea(request, id):
+    tarea = Tarea.objects.get(id=id)
+    
+    return render(request, 'tareasapp/detalle.html', {
+        'tarea': tarea
+    })
+
+# EDITAR TAREA CON EL ID
+def editar_tarea(request, id):
+    tarea = Tarea.objects.get(id=id)
+    
+    if request.method == 'POST':
+        tarea.titulo = request.POST['titulo']
+        tarea.descripcion = request.POST['descripcion']
+        # LOS TRUEFALSE SIEMPRE EMPIEZAN EN FALSO
+        tarea.completada = 'completada' in request.POST
+        tarea.save()
+        return redirect('inicio')
+    
+    return render(request, 'tareasapp/editar.html', {
+        'tarea' : tarea
+    })
+
+def eliminar_tarea(request, id):
+    tarea = Tarea.objects.get(id=id)
+
+    if request.method == 'POST':
+        tarea.delete()
+        return redirect('inicio')
+    
+    return render(request, 'tareasapp/eliminar.html', {
+        'tarea': tarea
+    })
