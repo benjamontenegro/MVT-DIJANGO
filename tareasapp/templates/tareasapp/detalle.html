@@ -49,11 +49,11 @@
 
 <body>
 
-<div class="contenedor">
+<div >
 
     <h1>👁️ Detalle de tarea</h1>
 
-    <div class="informacion">
+    <div >
 
         <p>
             <strong>ID:</strong>
@@ -83,9 +83,9 @@
 
     </div>
 
-    <a href="/" class="boton">
-        ← Volver al inicio
-    </a>
+    <form action="{% url 'inicio' %}">
+        <button><b>← Volver</b></button>
+    </form>
 
 </div>
 

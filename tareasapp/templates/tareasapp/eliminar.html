@@ -78,16 +78,16 @@
         {% csrf_token %}
 
         <button type="submit">
-            Sí, eliminar
+            <b>Sí, eliminar</b>
         </button>
 
     </form>
 
     <br>
 
-    <a href="/">
-        ← Cancelar y volver al inicio
-    </a>
+    <form action="{% url 'inicio' %}">
+        <button><b>← Cancelar</b></button>
+    </form>
 
 </body>
 

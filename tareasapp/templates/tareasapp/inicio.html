@@ -9,19 +9,23 @@
 
 <body>
 
-<div class="contenedor">
+<div >
+
+    <form action="/">
+        <button><b>🚪 Cerrar sesion</b></button>
+    </form>
 
     <h1>📝 Mis Tareas</h1>
 
-    <div class="acciones">
-        <a href="{% url 'crear_tarea' %}" class="boton">
-            ➕ Nueva tarea
-        </a>
+    <div>
+        <form action="{% url 'crear_tarea' %}">
+            <button><b>➕ Nueva tarea</b></button>
+        </form>
     </div>
 
     {% for tarea in tareas %}
 
-        <div class="tarea">
+        <div >
 
             <h2>{{ tarea.titulo }}</h2>
 
@@ -39,21 +43,25 @@
                 {% endif %}
             </p>
 
-            <div class="botones">
-
-                <a href="{% url 'detalle_tarea' tarea.id %}">
-                    👁️ Ver
-                </a>
-
-                <a href="{% url 'editar_tarea' tarea.id %}">
-                    ✏️ Editar
-                </a>
-
-                <a href="{% url 'eliminar_tarea' tarea.id %}">
-                    🗑️ Eliminar
-                </a>
-
-            </div>
+            <table >
+                <tr>
+                    <td>
+                        <form action="{% url 'detalle_tarea' tarea.id %}">
+                            <button><b>👁️ Ver</b></button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{% url 'editar_tarea' tarea.id %}">
+                            <button><b>✏️ Editar</b></button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{% url 'eliminar_tarea' tarea.id %}">
+                            <button><b>🗑️ Eliminar</b></button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
 
         </div>
 
