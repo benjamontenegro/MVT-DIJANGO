@@ -5,8 +5,20 @@ from . import views
 # ASKBAKSBDASKDB
 
 urlpatterns = [
+    # path(
+    #     '', 
+    #     views.inicio, 
+    #     name= 'inicio'
+    # ),
     path(
         '', 
+        views.login_pagina, 
+        name= 'login_pagina'
+    ),
+    
+    # PAGINAS
+    path(
+        'tareas/', 
         views.inicio, 
         name= 'inicio'
     ),
@@ -29,5 +41,12 @@ urlpatterns = [
         'eliminar/<int:id>',
         views.eliminar_tarea,
         name= 'eliminar_tarea'
-    )
+    ),
+
+    # APIS AUTENTICACION
+    path(
+        'api/login/', 
+        views.LoginAPIVIew.as_view(), 
+        name= 'login_api'
+    ),
 ]
