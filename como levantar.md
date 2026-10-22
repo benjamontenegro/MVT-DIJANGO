@@ -13,7 +13,7 @@
 * pip install -r requirements.txt
 
 * abrir xampp y levantar apache y mysql
-* if a http://localhost:8082/dashboard/ y dsps a phpmyadmin
+* if a http://localhost:8082/phpmyadmin/
 * new database -> "tareasdb"
 
 * python manage.py check
