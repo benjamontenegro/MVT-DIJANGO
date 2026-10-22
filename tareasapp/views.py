@@ -3,11 +3,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
 
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from .models import Tarea
 
@@ -78,13 +79,14 @@ def login_pagina(request):
     
     return render(request, 'tareasapp/login.html')
 
-class LoginAPIVIew(APIView):
+# API DE LOGIN
+class LoginAPIView(APIView):
 
+    # NSE QUE HACE ESTO
     permission_classes = [AllowAny]
-    
-    def post(self, request):
 
-        # JAVASCRIPT/JSON HASTA ACA
+    def post(self, request):
+        # ESTO LO DA EL SCRIPT DE LOGIN.HTML
         username = request.data.get('username')
         password = request.data.get('password')
 
@@ -93,12 +95,13 @@ class LoginAPIVIew(APIView):
             username=username,
             password=password
         )
-
+        # Si existen las credenciales del usuario
+        # significa que si esta valido
         if usuario is not None:
             token, creado = Token.objects.get_or_create(
                 user=usuario
             )
-
+            # CREAR TOKEN Y DEVOLVER LA LLAVE DEL TOKEN
             return Response(
                 {
                     'mensaje' : 'Autenticado',
@@ -107,12 +110,34 @@ class LoginAPIVIew(APIView):
                 },
                 status=status.HTTP_200_OK
             )
-        
+        # no pasa nada tio
         return Response(
             {
                 'error' : 'Usuario o contraseña incorrecta',
             },
             status=status.HTTP_401_UNAUTHORIZED
         )
+
+# API DE TAREAS
+class TareasAPIView(APIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    # GET LIST TAREAS
+    def get(self, request):
+
+        tareas = Tarea.objects.all()
+        datos = []
+
+        for tarea in tareas:
+            datos.append({
+                'id': tarea.id,
+                'titulo': tarea.titulo,
+                'descripcion' : tarea.descripcion,
+                'completada' : tarea.completada
+            })
+            
+        return Response(datos, status.HTTP_200_OK)
 
     pass

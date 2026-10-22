@@ -46,7 +46,12 @@ urlpatterns = [
     # APIS AUTENTICACION
     path(
         'api/login/', 
-        views.LoginAPIVIew.as_view(), 
+        views.LoginAPIView.as_view(), 
         name= 'login_api'
     ),
+    path(
+        'api/tareas/',
+        views.TareasAPIView.as_view(),
+        name = 'tareas_api'
+    )
 ]
