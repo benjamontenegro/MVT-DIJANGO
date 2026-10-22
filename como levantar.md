@@ -11,8 +11,15 @@
 * py -3.12 -m venv venv
 * venv\Scripts\activate
 * pip install -r requirements.txt
+
+* abrir xampp y levantar apache y mysql
+* if a http://localhost:8082/dashboard/ y dsps a phpmyadmin
+* new database -> "tareasdb"
+
 * python manage.py check
 * python manage.py migrate
+* python manage.py createsuperuser
+* (benja 123123ab)
 * python manage.py runserver
 
 <img src="cosa1.png" alt="RECORDAR">
