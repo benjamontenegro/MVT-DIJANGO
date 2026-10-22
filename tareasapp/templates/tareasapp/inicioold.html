@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Mis Tareas</title>
+    
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <h1>📝 Mis Tareas</h1>
+
+    <div class="acciones">
+        <a href="{% url 'crear_tarea' %}" class="boton">
+            ➕ Nueva tarea
+        </a>
+    </div>
+
+    {% for tarea in tareas %}
+
+        <div class="tarea">
+
+            <h2>{{ tarea.titulo }}</h2>
+
+            <p>
+                {{ tarea.descripcion }}
+            </p>
+
+            <p>
+                <strong>Estado:</strong>
+
+                {% if tarea.completada %}
+                    Completada ✅
+                {% else %}
+                    Pendiente ⏳
+                {% endif %}
+            </p>
+
+            <div class="botones">
+
+                <a href="{% url 'detalle_tarea' tarea.id %}">
+                    👁️ Ver
+                </a>
+
+                <a href="{% url 'editar_tarea' tarea.id %}">
+                    ✏️ Editar
+                </a>
+
+                <a href="{% url 'eliminar_tarea' tarea.id %}">
+                    🗑️ Eliminar
+                </a>
+
+            </div>
+
+        </div>
+
+    {% empty %}
+
+        <p>No existen tareas registradas.</p>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

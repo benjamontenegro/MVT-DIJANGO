@@ -17,11 +17,9 @@ from .models import Tarea
 # Esta es la logica de toda la aplicaicon
 
 def inicio(request):
-    tareas = Tarea.objects.all()
+    # tareas = Tarea.objects.all()
 
-    return render(request, 'tareasapp/inicio.html', {
-        'tareas': tareas
-    }) 
+    return render(request, 'tareasapp/inicio.html') 
 
 def crear_tarea(request):
     if request.method == 'POST':
@@ -137,7 +135,5 @@ class TareasAPIView(APIView):
                 'descripcion' : tarea.descripcion,
                 'completada' : tarea.completada
             })
-            
-        return Response(datos, status.HTTP_200_OK)
 
-    pass
+        return Response(datos, status.HTTP_200_OK)

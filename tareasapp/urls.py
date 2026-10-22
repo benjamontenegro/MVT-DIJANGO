@@ -28,30 +28,31 @@ urlpatterns = [
         name= 'crear_tarea'
     ),
     path(
-        'detalle/<int:id>',
+        'detalle/<int:id>/',
         views.detalle_tarea, 
         name= 'detalle_tarea'
     ),
     path(
-        'editar/<int:id>',
+        'editar/<int:id>/',
         views.editar_tarea,
         name= 'editar_tarea'
     ),
     path(
-        'eliminar/<int:id>',
+        'eliminar/<int:id>/',
         views.eliminar_tarea,
         name= 'eliminar_tarea'
     ),
 
-    # APIS AUTENTICACION
+    # API AUTENTICACION
     path(
         'api/login/', 
         views.LoginAPIView.as_view(), 
-        name= 'login_api'
+        name= 'api_login'
     ),
+    # API LISTAR TAREAS
     path(
         'api/tareas/',
         views.TareasAPIView.as_view(),
-        name = 'tareas_api'
+        name = 'api_tareas'
     )
 ]
