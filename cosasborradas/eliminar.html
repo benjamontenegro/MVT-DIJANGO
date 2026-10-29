@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Eliminar tarea</title>
+
+    <!-- <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .contenedor {
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .acciones {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .boton {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .tarea {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .tarea h2 {
+            margin-top: 0;
+        }
+
+        .botones {
+            margin-top: 15px;
+        }
+
+        .botones a {
+            margin-right: 10px;
+            text-decoration: none;
+        }
+    </style> -->
+</head>
+
+<body>
+
+    <h1>🗑️ Eliminar tarea</h1>
+
+    <p>
+        ¿Estás seguro de que quieres eliminar esta tarea?
+    </p>
+
+    <h2>{{ tarea.titulo }}</h2>
+
+    <p>
+        {{ tarea.descripcion }}
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <button type="submit">
+            Sí, eliminar
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/">
+        ← Cancelar y volver al inicio
+    </a>
+
+</body>
+
+</html>
