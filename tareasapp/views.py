@@ -41,15 +41,15 @@ def crear_tarea(request):
 # MOSTRAR URL DE DETALLE TAREA CON LA ID DE LA TAREA
 # A DETALLAR
 def detalle_tarea(request, id):
-    tarea = Tarea.objects.get(id=id)
+    # tarea = Tarea.objects.get(id=id)
     
-    return render(request, 'tareasapp/detalle.html', {
-        'tarea': tarea
-    })
+    return render(request, 'tareasapp/detalle.html'
+    # , { 'tarea': tarea}
+    )
 
 # EDITAR TAREA CON EL ID
 def editar_tarea(request, id):
-    tarea = Tarea.objects.get(id=id)
+    # tarea = Tarea.objects.get(id=id)
     
     # if request.method == 'POST':
     #     tarea.titulo = request.POST['titulo']
@@ -59,24 +59,25 @@ def editar_tarea(request, id):
     #     tarea.save()
     #     return redirect('inicio')
     
-    return render(request, 'tareasapp/editar.html', {
-        'tarea' : tarea
-    })
+    return render(request, 'tareasapp/editar.html'
+    # , {'tarea' : tarea}
+    )
 
 def eliminar_tarea(request, id):
-    tarea = Tarea.objects.get(id=id)
+    # tarea = Tarea.objects.get(id=id)
 
-    if request.method == 'POST':
-        tarea.delete()
-        return redirect('inicio')
+    # if request.method == 'POST':
+    #     tarea.delete()
+    #     return redirect('inicio')
     
-    return render(request, 'tareasapp/eliminar.html', {
-        'tarea': tarea
-    })
+    return render(request, 'tareasapp/eliminar.html'
+    # , { 'tarea': tarea}
+    )
 
 def login_pagina(request):
     
     return render(request, 'tareasapp/login.html')
+
 
 # API DE LOGIN
 class LoginAPIView(APIView):
@@ -132,7 +133,7 @@ class TareasAPIView(APIView):
     # LISTAR TAREAS
     def get(self, request):
 
-        tareas = Tarea.objects.all()
+        tareas = Tarea.objects.all() # !!!!!!!!!!!!!!!!
         datos = []
 
         for tarea in tareas:
@@ -182,7 +183,7 @@ class TareasAPIView(APIView):
         }, status=status.HTTP_201_CREATED)
 
 
-# TAREAS CON ID ESPECIFICA
+# API PARA TAREAS CON ID ESPECIFICA
 class TareaDetalleAPIView(APIView):
 
     authentication_classes = [TokenAuthentication]
@@ -192,7 +193,7 @@ class TareaDetalleAPIView(APIView):
     # FUNCION PARA TAREAS CON X ID
     def get_object(self, pk):
         try:
-            return Tarea.objects.get(pk=pk)
+            return Tarea.objects.get(pk=pk) # !!!!!!!!!!!!!!!!!!!
         except Tarea.DoesNotExist:
             return None
 
@@ -218,6 +219,8 @@ class TareaDetalleAPIView(APIView):
         }, status=status.HTTP_200_OK)
         pass
 
+    ##############################################################################
+    # UPDATE FULL TAREA
     def put(self, request, pk):
 
         tarea = self.get_object(pk)
@@ -240,6 +243,8 @@ class TareaDetalleAPIView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        # hasta este punto ya es lo mismo del create no?
+        # bueno tmbn tiene cosas del view original de editar
         tarea.titulo = titulo
         tarea.descripcion = descripcion
         tarea.completada = completada
@@ -254,20 +259,27 @@ class TareaDetalleAPIView(APIView):
         }, status=status.HTTP_200_OK)
         pass
 
+    ##############################################################################
     # METODO PATCH
     # tengo que comentar este
     def patch(self, request, pk):
+        
         tarea = self.get_object(pk)
         if not tarea:
-            return Response({'error': 'Tarea no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({
+                'error': 'Tarea no encontrada'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
 
+        # si no estan todos los datos editados
+        # como en el put
+        # solo edita algunos datos 
         if 'titulo' in request.data:
             tarea.titulo = request.data.get('titulo')
         if 'descripcion' in request.data:
             tarea.descripcion = request.data.get('descripcion')
         if 'completada' in request.data:
             tarea.completada = request.data.get('completada')
-
         tarea.save()
 
         return Response({
@@ -277,6 +289,22 @@ class TareaDetalleAPIView(APIView):
             'completada': tarea.completada
         }, status=status.HTTP_200_OK)
 
-    
-
+    ##############################################################################
     # METODO DELETE
+    def delete(self, request, pk):
+
+        tarea = self.get_object(pk)
+        if not tarea:
+            return Response({
+                'error': 'Tarea no encontrada'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        tarea.delete()
+        # no content pq ya no hay content cffffffffffffffffffff
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+# hermano de toda esta mierda, nada lo iba a inventar yo solo
+# lit estaba hecho para que lo pusiera en la ia y me diera resultados
+# soy re flojo askdaksdkajsdh
+# bueno igual no fui a esas clases xd
