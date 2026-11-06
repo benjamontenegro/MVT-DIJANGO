@@ -1,4 +1,8 @@
 ### coso de backend
-django + apis + nse
+django + apis
+
+ASKDHBJKASDASD
+ASKDBHAKSJBD
+pal commit uwu
 
 <a href="como levantar.md"> NO OLVIDAR...</a>
