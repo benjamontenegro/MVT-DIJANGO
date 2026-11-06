@@ -71,8 +71,14 @@
                 completada: completada
             };
 
-            try {
+            try 
+            {
+                // AQUI PUEDE HABER UN ERROR???
                 const respuesta = await fetch('/api/tareas/', {
+                    // LA TEMPLATE HACE UNA PETICION fetch
+                    // CON METODO POST
+                    // REUQIERE QU E LA CLASE TAREASAPIVIEW
+                    // TENGA EL POST INTEGRADO EN EL REST
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
